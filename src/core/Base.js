@@ -1,4 +1,5 @@
 import React from "react";
+import Menu from "./Menu"
 
 const Base = ({
   title = "My Title",
@@ -8,6 +9,7 @@ const Base = ({
 }) => {
   return (
     <div>
+    <Menu />
       <div className="container-fluid">
         <div className="jumbotron bg-dark text-white text-center">
           <h2 className="display-4">{title}</h2>
@@ -21,9 +23,9 @@ const Base = ({
           <button className="btn btn-warning btn-lg">Contact us</button>
         </div>
         <div className="container">
-          <span className="text-mutes">
-            An Amazing <span className="text-white">MERN</span>Bootcamp
-          </span>
+          <span className="text-mutes text-white">
+            An Amazing <span className="text-white">MERN</span>Bootcamp</span>
+        
         </div>
       </footer>
     </div>
