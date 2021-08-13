@@ -6,7 +6,7 @@ const Signup = () => {
   const signUpForm = () => {
     return (
       <div className="row">
-        <div className="col-md-2 offset-sm-3 text-left">
+        <div className="col-md-6 offset-sm-3 text-left">
           <form>
             <div className="form-group">
               <label className="text-light">Name</label>
@@ -28,7 +28,7 @@ const Signup = () => {
   };
 
   return (
-    <Base title="Sign u page" description="A page for user to sign up!">
+    <Base title="Sign up page" description="A page for user to sign up!">
 
       {signUpForm()}
     </Base>
