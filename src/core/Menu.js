@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { isAuthenticated, signout } from "../auth/helper";
+import { signout, isAuthenticated } from "../auth/helper";
 
 const currentTab = (history, path) => {
   if (history.location.pathname === path) {
     return { color: "#2ecc72" };
   } else {
-    return { color: "#ffffff" };
+    return { color: "#FFFFFF" };
   }
 };
 
@@ -33,7 +33,7 @@ const Menu = ({ history }) => (
           className="nav-link"
           to="/user/dashboard"
         >
-          Dashboard
+          U. Dashboard
         </Link>
       </li>
       <li className="nav-item">
@@ -45,7 +45,7 @@ const Menu = ({ history }) => (
           A. Dashboard
         </Link>
       </li>
-      {isAuthenticated() && (
+      {!isAuthenticated() && (
         <Fragment>
           <li className="nav-item">
             <Link
@@ -53,7 +53,7 @@ const Menu = ({ history }) => (
               className="nav-link"
               to="/signup"
             >
-              SignUp
+              Signup
             </Link>
           </li>
           <li className="nav-item">
@@ -62,7 +62,7 @@ const Menu = ({ history }) => (
               className="nav-link"
               to="/signin"
             >
-              SignIn
+              Sign In
             </Link>
           </li>
         </Fragment>
@@ -84,4 +84,5 @@ const Menu = ({ history }) => (
     </ul>
   </div>
 );
+
 export default withRouter(Menu);
