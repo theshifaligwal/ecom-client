@@ -23,8 +23,12 @@ const Signup = () => {
     setValues({ ...values, error: false });
     signup({ name, email, password })
       .then((data) => {
-        if (data?.error) {
-          setValues({ ...values, error: data.error, success: false });
+        if (data.errors) {
+          const errorSendBackend = [];
+          data.errors.forEach((element) => {
+            errorSendBackend.push(element.msg);
+          });
+          setValues({ ...values, error: errorSendBackend, success: false });
         } else {
           setValues({
             ...values,
@@ -72,10 +76,7 @@ const Signup = () => {
                 value={password}
               />
             </div>
-            <button
-              onClick={onSubmit}
-              className="btn btn-success btn-block"
-            >
+            <button onClick={onSubmit} className="btn btn-success btn-block">
               Submit
             </button>
           </form>
@@ -108,7 +109,7 @@ const Signup = () => {
             className="alert alert-danger"
             style={{ display: error ? "" : "none" }}
           >
-            {error}
+            {error[0]}
           </div>
         </div>
       </div>
