@@ -22,7 +22,7 @@ const AddProduct = () => {
   const createProductForm = () => (
     <form>
       <span>Post photo</span>
-      <div className="form-group">
+      <div className="form-group mb-2">
         <label className="btn btn-block btn-success">
           <input
             onChange={handleChange("photo")}
@@ -33,7 +33,7 @@ const AddProduct = () => {
           />
         </label>
       </div>
-      <div className="form-group">
+      <div className="form-group mb-2">
         <input
           onChange={handleChange("name")}
           name="photo"
@@ -42,7 +42,7 @@ const AddProduct = () => {
           value={name}
         />
       </div>
-      <div className="form-group">
+      <div className="form-group mb-2">
         <textarea
           onChange={handleChange("description")}
           name="photo"
@@ -51,7 +51,7 @@ const AddProduct = () => {
           value={description}
         />
       </div>
-      <div className="form-group">
+      <div className="form-group mb-2">
         <input
           onChange={handleChange("price")}
           type="number"
@@ -60,7 +60,7 @@ const AddProduct = () => {
           value={price}
         />
       </div>
-      <div className="form-group">
+      <div className="form-group mb-2">
         <select
           onChange={handleChange("category")}
           className="form-control"
@@ -71,7 +71,7 @@ const AddProduct = () => {
           <option value="b">b</option>
         </select>
       </div>
-      <div className="form-group">
+      <div className="form-group mb-2">
         <input
           onChange={handleChange("quantity")}
           type="number"
@@ -84,7 +84,7 @@ const AddProduct = () => {
       <button
         type="submit"
         onClick={onSubmit}
-        className="btn btn-outline-success mb-3"
+        className="btn btn-outline-success mb-5"
       >
         Create Product
       </button>
