@@ -19,18 +19,18 @@ const AddCategory = () => {
     </div>
   );
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setError("");
     setName(event.target.value);
   };
 
-  const onSubmit = (event) => {
-    event.prevent.default();
+  const onSubmit = event => {
+    event.preventDefault();
     setError("");
     setSuccess(false);
 
-    // backend request fired
-    createCategory(user._id, token, { name }).then((data) => {
+    //backend request fired
+    createCategory(user._id, token, { name }).then(data => {
       if (data.error) {
         setError(true);
       } else {
@@ -43,7 +43,7 @@ const AddCategory = () => {
 
   const successMessage = () => {
     if (success) {
-      return <h4 className="text-success">Category Created Successfully</h4>;
+      return <h4 className="text-success">Category created successfully</h4>;
     }
   };
 
@@ -76,12 +76,15 @@ const AddCategory = () => {
   return (
     <Base
       title="Create a category here"
-      description="Add a new category for new t-shirts"
+      description="Add a new category for new tshirts"
       className="container bg-info p-4"
     >
       <div className="row bg-white rounded">
         <div className="col-md-8 offset-md-2">
-          {successMessage()},{warningMessage()},{myCategoryForm()}, {goBack()}
+          {successMessage()}
+          {warningMessage()}
+          {myCategoryForm()}
+          {goBack()}
         </div>
       </div>
     </Base>

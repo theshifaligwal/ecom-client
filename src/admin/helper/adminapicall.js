@@ -23,7 +23,7 @@ export const getCategories = () => {
     method: "GET",
   })
     .then((response) => {
-      return response.json;
+      return response.json();
     })
     .catch((err) => console.log(err));
 };
@@ -58,7 +58,7 @@ export const getProducts = () => {
 };
 
 // delete a product
-export const deletProduct = (productId, userId, token) => {
+export const deleteProduct = (productId, userId, token) => {
   return fetch(`${API}/product/${productId}/${userId}`, {
     method: "DELETE",
     headers: {

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import Base from "../core/Base";
 import { Link } from "react-router-dom";
 import { getCategories } from "./helper/adminapicall";
+import { isAuthenticated } from "../auth/helper/index";
 
 const AddProduct = () => {
+  const { user, token } = isAuthenticated();
+
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -15,7 +18,7 @@ const AddProduct = () => {
     loading: false,
     error: "",
     createdProduct: "",
-    getRedirect: false,
+    getaRedirect: false,
     formData: "",
   });
 
@@ -24,7 +27,6 @@ const AddProduct = () => {
     description,
     price,
     stock,
-    photo,
     categories,
     category,
     loading,
@@ -33,10 +35,10 @@ const AddProduct = () => {
     getRedirect,
     formData,
   } = values;
-
+  // console.log(values);
   const preload = () => {
     getCategories().then((data) => {
-      console.log(data);
+      // console.log(data.error);
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {
@@ -54,12 +56,15 @@ const AddProduct = () => {
   };
 
   const handleChange = (name) => (event) => {
-    //
+    const value = name === "photo" ? event.target.file[0] : event.target.value;
+    formData.set(name, value);
+    setValues({ ...values, [name]: value });
   };
+
   const createProductForm = () => (
     <form>
       <span>Post photo</span>
-      <div className="form-group mb-2">
+      <div className="form-group mb-3">
         <label className="btn btn-block btn-success">
           <input
             onChange={handleChange("photo")}
@@ -70,7 +75,7 @@ const AddProduct = () => {
           />
         </label>
       </div>
-      <div className="form-group mb-2">
+      <div className="form-group mb-3">
         <input
           onChange={handleChange("name")}
           name="photo"
@@ -79,7 +84,7 @@ const AddProduct = () => {
           value={name}
         />
       </div>
-      <div className="form-group mb-2">
+      <div className="form-group mb-3">
         <textarea
           onChange={handleChange("description")}
           name="photo"
@@ -88,7 +93,7 @@ const AddProduct = () => {
           value={description}
         />
       </div>
-      <div className="form-group mb-2">
+      <div className="form-group mb-3">
         <input
           onChange={handleChange("price")}
           type="number"
@@ -97,23 +102,27 @@ const AddProduct = () => {
           value={price}
         />
       </div>
-      <div className="form-group mb-2">
+      <div className="form-group mb-3">
         <select
           onChange={handleChange("category")}
           className="form-control"
           placeholder="Category"
         >
           <option>Select</option>
-          <option value="a">a</option>
-          <option value="b">b</option>
+          {!!categories &&
+            categories.map((cate, index) => (
+              <option key={index} value={cate._id}>
+                {cate.name}
+              </option>
+            ))}
         </select>
       </div>
-      <div className="form-group mb-2">
+      <div className="form-group mb-3">
         <input
           onChange={handleChange("quantity")}
           type="number"
           className="form-control"
-          placeholder="Quantity"
+          placeholder="Stock"
           value={stock}
         />
       </div>
@@ -121,7 +130,7 @@ const AddProduct = () => {
       <button
         type="submit"
         onClick={onSubmit}
-        className="btn btn-outline-success mb-5"
+        className="btn btn-outline-success mb-3"
       >
         Create Product
       </button>
@@ -130,9 +139,9 @@ const AddProduct = () => {
 
   return (
     <Base
-      title="Add a product here"
+      title="Add a product here!"
       description="Welcome to product creation section"
-      className="container bg-info p-4 mb-5"
+      className="container bg-info p-4"
     >
       <Link to="/admin/dashboard" className="btn btn-md btn-dark mb-3">
         Admin Home
