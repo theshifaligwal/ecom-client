@@ -41,18 +41,18 @@ export const createaProduct = (userId, token, product) => {
     body: product,
   })
     .then((response) => {
-      return response.json;
+      return response.json();
     })
     .catch((err) => console.log(err));
 };
 
 // get all product
-export const getProducts = () => {
+export const getAllProduct = () => {
   return fetch(`${API}/products`, {
     method: "GET",
   })
     .then((response) => {
-      return response.json;
+      return response.json();
     })
     .catch((err) => console.log(err));
 };
@@ -67,7 +67,7 @@ export const deleteProduct = (productId, userId, token) => {
     },
   })
     .then((response) => {
-      return response.json;
+      return response.json();
     })
     .catch((err) => console.log(err));
 };
@@ -94,7 +94,7 @@ export const updateProduct = (productId, userId, token, product) => {
     body: product,
   })
     .then((response) => {
-      return response.json;
+      return response.json();
     })
     .catch((err) => console.log(err));
 };
