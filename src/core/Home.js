@@ -8,10 +8,11 @@ import { getProduct } from "./helper/coreapicalls";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
+  
   const loadAllProduct = () => {
     getProduct().then((data) => {
       if (data.error) {
-        setError(true);
+        setError(data.setError);
       } else {
         // console.log(data);
         setProducts(data); 
@@ -28,7 +29,7 @@ export default function Home() {
       <div className="row text-center">
         <h1 className="text-white">All of T-Shirts</h1>
         <div className="row">
-          {products.map((product, index) => {
+          {!!products && products.map((product, index) => {
             return (
               <div key={index} className="col-4 mb-4">
                 <Card product={product} />

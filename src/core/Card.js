@@ -25,7 +25,7 @@ const Card = ({ product, addtoCart = true, removeFromCart = false }) => {
     return (
       addtoCart && (
         <button
-          onClick={addToCart()}
+          onClick={addToCart}
           className="btn btn-block btn-outline-success mt-2 mb-2"
         >
           Add to Cart
