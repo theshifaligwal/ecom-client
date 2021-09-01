@@ -8,13 +8,13 @@ import { getProduct } from "./helper/coreapicalls";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
-
   const loadAllProduct = () => {
     getProduct().then((data) => {
       if (data.error) {
-        setError(data.error);
+        setError(true);
       } else {
-        setProducts(data);
+        // console.log(data);
+        setProducts(data); 
       }
     });
   };
@@ -24,9 +24,9 @@ export default function Home() {
   }, []);
 
   return (
-    <Base title="Home Page" description="Welcome to T-shirt store!!!!">
+    <Base title="Home Page" description="Welcome to the T - Shirt Store">
       <div className="row text-center">
-        <h1 className="text-white text-center">All the t-shirts</h1>
+        <h1 className="text-white">All of T-Shirts</h1>
         <div className="row">
           {products.map((product, index) => {
             return (
