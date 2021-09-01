@@ -1,94 +1,84 @@
-import React, { useState } from "react";
-import Base from "../core/Base";
-import { isAuthenticated } from "../auth/helper";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { createCategory } from "./helper/adminapicall";
+import { isAuthenticated } from "../auth/helper";
+import Base from "../core/Base";
+import { deleteProduct, getCategories } from "./helper/adminapicall";
 
-const AddCategory = () => {
-  const [name, setName] = useState("");
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-
+const ManageCategories = () => {
+  const [categories, setCategories] = useState([]);
   const { user, token } = isAuthenticated();
 
-  const goBack = () => (
-    <div className="mt-5">
-      <Link className="btn btn-sm btn-success mb-3" to="/admin/dashboard">
-        Admin Home
-      </Link>
-    </div>
-  );
-
-  const handleChange = event => {
-    setError("");
-    setName(event.target.value);
+  const preloadCategories = () => {
+    getCategories()
+      .then((data) => {
+        if (data.error) {
+          console.log(data.error);
+        } else {
+          setCategories(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const onSubmit = event => {
-    event.preventDefault();
-    setError("");
-    setSuccess(false);
+  useEffect(() => {
+    preloadCategories();
+  }, []);
 
-    //backend request fired
-    createCategory(user._id, token, { name }).then(data => {
-      if (data.error) {
-        setError(true);
-      } else {
-        setError("");
-        setSuccess(true);
-        setName("");
-      }
-    });
+  const deleteProductOnClick = (userId, token, categoryId) => {
+    deleteProduct(userId, token, categoryId)
+      .then((data) => {
+        if (data.error) {
+          console.log(data.error);
+        } else {
+          setCategories([]);
+          preloadCategories();
+        }
+      })
+      .catch();
   };
-
-  const successMessage = () => {
-    if (success) {
-      return <h4 className="text-success">Category created successfully</h4>;
-    }
-  };
-
-  const warningMessage = () => {
-    if (error) {
-      return <h4 className="text-success">Failed to create category</h4>;
-    }
-  };
-
-  const myCategoryForm = () => (
-    <form>
-      <div className="form-group">
-        <p className="lead">Enter the category</p>
-        <input
-          type="text"
-          className="form-control my-3"
-          onChange={handleChange}
-          value={name}
-          autoFocus
-          required
-          placeholder="For Ex. Summer"
-        />
-        <button onClick={onSubmit} className="btn btn-outline-info">
-          Create Category
-        </button>
-      </div>
-    </form>
-  );
 
   return (
-    <Base
-      title="Create a category here"
-      description="Add a new category for new tshirts"
-      className="container bg-info p-4"
-    >
-      <div className="row bg-white rounded">
-        <div className="col-md-8 offset-md-2">
-          {successMessage()}
-          {warningMessage()}
-          {myCategoryForm()}
-          {goBack()}
+    <Base title="Welcome admin" description="Manage categories here">
+      <Link className="btn btn-info mb-2" to={`/admin/dashboard`}>
+        <span className="">Admin Home</span>
+      </Link>
+      <h2 className="mb-2">All Category:</h2>
+      <h3 className="text-center text-white my-3">
+        Total {categories.length} Categories
+      </h3>
+      <div className="row">
+        <div className="col-12">
+          {categories.map((category, index) => (
+            <div className="row text-center mb-2 " key={index}>
+              <div className="col-4">
+                <h3 className="text-white text-left">{category.name}</h3>
+              </div>
+              <div className="col-4">
+                <Link
+                  className="btn btn-success"
+                  to={`/admin/category/update/${category._id}`}
+                >
+                  <span className="">Update</span>
+                </Link>
+              </div>
+              <div className="col-4">
+                <button
+                  onClick={() => {
+                    deleteProductOnClick(user._id, token, category._id);
+                  }}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </Base>
   );
 };
 
-export default AddCategory;
+export default ManageCategories;
