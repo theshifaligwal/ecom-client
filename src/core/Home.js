@@ -8,14 +8,14 @@ import { getProduct } from "./helper/coreapicalls";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
-  
+
   const loadAllProduct = () => {
     getProduct().then((data) => {
-      if (data.error) {
-        setError(data.setError);
+      console.log(data);
+      if (data?.error) {
+        setError(data.error);
       } else {
-        // console.log(data);
-        setProducts(data); 
+        setProducts(data);
       }
     });
   };
@@ -25,11 +25,11 @@ export default function Home() {
   }, []);
 
   return (
-    <Base title="Home Page" description="Welcome to the T - Shirt Store">
+    <Base title="Home Page" description="Welcome to the Tshirt Store">
       <div className="row text-center">
-        <h1 className="text-white">All of T-Shirts</h1>
+        <h1 className="text-white">All of tshirts</h1>
         <div className="row">
-          {!!products && products.map((product, index) => {
+          {products.map((product, index) => {
             return (
               <div key={index} className="col-4 mb-4">
                 <Card product={product} />
