@@ -17,6 +17,14 @@ const Cart = () => {
     return (
       <div>
         <h2>This section is to load products</h2>
+        {products.map((product, index) => (
+          <Card key={index}
+          product={product}
+          removeFromCart={true}
+          addtoCart={false}
+          setReload={setReload}
+          reload={reload} />
+        ))}
       </div>
     );
   };
@@ -31,7 +39,7 @@ const Cart = () => {
 
   return (
     <Base title="Cart Page" description="Ready to checkout">
-      <div className="row">
+      <div className="row text-center">
         <div className="col-6">{loadAllProducts(products)}</div>
         <div className="col-6">{loadCheckout()}</div>
       </div>
