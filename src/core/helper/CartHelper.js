@@ -29,7 +29,14 @@ export const removeItemFromCart = (productId) => {
         cart.splice(i, 1);
       }
     });
-    localStorage.setItem("cart", JSON.stringify(cart))
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
   return cart;
+};
+
+export const cartEmpty = (next) => {
+  if (typeof window !== undefined) {
+    localStorage.removeItem("cart");
+    next();
+  }
 };
