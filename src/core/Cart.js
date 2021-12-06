@@ -5,6 +5,8 @@ import Base from "./Base";
 import Card from "./Card";
 import { loadCart } from "./helper/CartHelper";
 import PaymentB from "./PaymentB";
+import { Link } from "react-router-dom";
+import { isAuthenticated } from "../auth/helper";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -55,7 +57,7 @@ const Cart = () => {
         </div>
         <div className="col-6">
           <PaymentB products={products} setReload={setReload} />
-          
+
           {isAuthenticated() ? (
             <div></div>
           ) : (
