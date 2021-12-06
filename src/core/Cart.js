@@ -4,7 +4,7 @@ import { API } from "../backend";
 import Base from "./Base";
 import Card from "./Card";
 import { loadCart } from "./helper/CartHelper";
-import PaymentB from "./PaymentB"
+import PaymentB from "./PaymentB";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -19,12 +19,14 @@ const Cart = () => {
       <div>
         <h2>This section is to load products</h2>
         {products.map((product, index) => (
-          <Card key={index}
-          product={product}
-          removeFromCart={true}
-          addtoCart={false}
-          setReload={setReload}
-          reload={reload} />
+          <Card
+            key={index}
+            product={product}
+            removeFromCart={true}
+            addtoCart={false}
+            setReload={setReload}
+            reload={reload}
+          />
         ))}
       </div>
     );
@@ -39,10 +41,31 @@ const Cart = () => {
   };
 
   return (
-    <Base title="Cart Page" description="Ready to checkout">
+    <Base
+      title="Cart Page"
+      description="Buy the T-Shirt as soon as offer goes off"
+    >
       <div className="row text-center">
-        <div className="col-6">{products.length > 0 ?loadAllProducts(products) : (<h3>No Products</h3>)}</div>
-        <div className="col-6"><PaymentB products={products} setReload={setReload}/></div>
+        <div className="col-6">
+          {products && products.length > 0 ? (
+            loadAllProducts(products)
+          ) : (
+            <h3>No Products</h3>
+          )}
+        </div>
+        <div className="col-6">
+          <PaymentB products={products} setReload={setReload} />
+          
+          {isAuthenticated() ? (
+            <div></div>
+          ) : (
+            <Link to="/signin">
+              <button className="btn btn-block rounded btn-outline-success">
+                SignIn
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
     </Base>
   );
