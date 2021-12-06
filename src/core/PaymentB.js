@@ -100,7 +100,7 @@ const PaymentB = ({
       style={{ display: isAuthenticated() ? "" : "none" }}
       className="alert alert-secondary"
     >
-      <h3 className="alert-heading">Your Total Amount:  {getAmount()} </h3>
+      <h3 className="alert-heading">Your Total Amount:  {getAmount()}$ </h3>
      
       <h3 className="alert-heading">Brain Tree: </h3>
       {showBrainTreeButton()}
